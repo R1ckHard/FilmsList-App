@@ -75,7 +75,7 @@ export default function MainForm() {
       // delete film from list
       let data = filmsList.filter((item) => item.title !== selectValue)
       setList(data)
-      localStorage.setItem('filmsList', JSON.stringify(filmsList))
+      localStorage.setItem('filmsList', JSON.stringify(data))
       // add films
       let addadded = filmsList.filter((item) => item.title === selectValue)
       setAdded([...addedFilms, ...addadded])
