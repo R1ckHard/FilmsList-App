@@ -13,7 +13,6 @@ const apiKey = '23ba1877d174867b3ff21108f4f4e46c'
 
 
 export default function MainForm() {
-
   const [value, setValue] = useState(1);
   const [filmsList, setList] = useState([])
   const [addedFilms, setAdded] = useState([])
@@ -43,11 +42,12 @@ export default function MainForm() {
             api_key: apiKey
           }
         })
-        res.data.items.map((item) => {
+        let data = res.data.items.map((item) => {
           item.watched = false
+          return item
         })
-        setList(res.data.items)
-        let films = JSON.stringify(res.data.items)
+        setList(data)
+        let films = JSON.stringify(data)
         localStorage.setItem('filmsList', films)
       }
       fetchData()
@@ -112,10 +112,11 @@ export default function MainForm() {
                 className='filmItemWrapper'
             >
               {search === '' ? (addedFilms.map((item, index) => {
-                if (item.watched)
+                if (item.watched) {
                   return (
                       <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
                   )
+                }
               })) : (
                   (addedFilms.map((item, index) => {
                     if (item.watched && item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1)
@@ -134,7 +135,7 @@ export default function MainForm() {
                 className='filmItemWrapper'
             >
               {search === '' ? (addedFilms.map((item, index) => {
-                if(!item.watched){
+                if (!item.watched) {
                   return (
                       <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
                   )
