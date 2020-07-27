@@ -22,24 +22,21 @@ export default function MainForm() {
   const [search, setSearch] = useState('')
 
   const handleCheckBox = (event) => {
-    let setWatchedToData = addedFilms.map((item)=>{
-      if(item.title=== event.target.title){
-        console.log(event.target.title); // correct title
-        item.watched=!item.watched
-        console.log(item.watched); //true
-        console.log(item);  // {...,watched:false}
+    let setWatchedToData = addedFilms.map((item) => {
+      if (item.title === event.target.title) {
+        item.watched = !item.watched
         return item
-      }else {
+      } else {
         return item
       }
     })
     setAdded(setWatchedToData)
-    localStorage.setItem('addedFilms',JSON.stringify(addedFilms))
+    localStorage.setItem('addedFilms', JSON.stringify(addedFilms))
   };
 
   useEffect(() => {
     if (!localStorage.getItem('filmsList')) {
-      console.log("getFilms");
+
       const fetchData = async () => {
         const res = await axios.get(`https://api.themoviedb.org/3/list/9258`, {
           params: {
@@ -64,8 +61,6 @@ export default function MainForm() {
       let data = JSON.parse(localStorage.getItem('addedFilms'))
       setAdded(data)
     }
-    console.log('render')
-
   }, [])
 
 
@@ -117,13 +112,13 @@ export default function MainForm() {
                 className='filmItemWrapper'
             >
               {search === '' ? (addedFilms.map((item, index) => {
-                if(item.watched)
-                return (
-                    <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
-                )
-              })):(
+                if (item.watched)
+                  return (
+                      <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
+                  )
+              })) : (
                   (addedFilms.map((item, index) => {
-                    if(item.watched&&item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+                    if (item.watched && item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1)
                       return (
                           <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
                       )
