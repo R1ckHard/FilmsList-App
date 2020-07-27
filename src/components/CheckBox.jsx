@@ -12,19 +12,6 @@ export default function CheckBoxItem({title, handleChange,checked}) {
                checked={checked}
         />
         <span>Watched</span>
-
-
-        {/*<FormControlLabel*/}
-        {/*    control={*/}
-        {/*      <Checkbox*/}
-        {/*          title={title}*/}
-        {/*          onChange={handleChange}*/}
-        {/*          color="primary"*/}
-        {/*          inputProps={{'aria-label': 'secondary checkbox'}}*/}
-        {/*      />*/}
-        {/*    }*/}
-        {/*    label="Watched"/>*/}
-
       </div>
   );
 }

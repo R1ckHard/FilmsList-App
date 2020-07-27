@@ -33,7 +33,6 @@ export default function MainForm() {
         return item
       }
     })
-    console.log(setWatchedToData);
     setAdded(setWatchedToData)
     localStorage.setItem('addedFilms',JSON.stringify(addedFilms))
   };
@@ -84,7 +83,6 @@ export default function MainForm() {
       localStorage.setItem('filmsList', JSON.stringify(filmsList))
       // add films
       let addadded = filmsList.filter((item) => item.title === selectValue)
-      console.log(...addadded);
       setAdded([...addedFilms, ...addadded])
       localStorage.setItem('addedFilms', JSON.stringify([...addedFilms, ...addadded]))
       setSelectValue('')
@@ -118,12 +116,19 @@ export default function MainForm() {
                 aria-labelledby="nested-list-subheader"
                 className='filmItemWrapper'
             >
-              {addedFilms.map((item, index) => {
+              {search === '' ? (addedFilms.map((item, index) => {
                 if(item.watched)
                 return (
                     <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
                 )
-              })
+              })):(
+                  (addedFilms.map((item, index) => {
+                    if(item.watched&&item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+                      return (
+                          <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
+                      )
+                  }))
+              )
               }
             </List>
           </TabPanel>
