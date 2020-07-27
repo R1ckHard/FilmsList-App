@@ -134,9 +134,11 @@ export default function MainForm() {
                 className='filmItemWrapper'
             >
               {search === '' ? (addedFilms.map((item, index) => {
-                return (
-                    <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
-                )
+                if(!item.watched){
+                  return (
+                      <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
+                  )
+                }
               })) : (addedFilms.map((item, index) => {
                 if (item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1) {
                   return <FilmItem handleCheckBox={handleCheckBox} item={item} key={index}/>
